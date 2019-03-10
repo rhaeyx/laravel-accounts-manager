@@ -3,10 +3,10 @@
 - Account manager
 - CRUD App
 
-##* Unfinished *
-
-####TODO:
+## TODO:
 - Make edit page.
 - Add edit button to the dashboard table.
 - Expiry date calculator.
 - Add delete feature.
+
+###  Unfinished 
