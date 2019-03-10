@@ -1,11 +1,11 @@
-## Little Project with Laravel
+# Little Project with Laravel
 
 - Account manager
 - CRUD App
 
-### Unfinished
+##* Unfinished *
 
-# TODO:
+####TODO:
 - Make edit page.
 - Add edit button to the dashboard table.
 - Expiry date calculator.
