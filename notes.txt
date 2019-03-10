@@ -1,0 +1,16 @@
+Configure some stuff for host.
+	- Open C://xamp/apache/conf/extra/vhost.conf
+        for virtual host entry, all we need is doc root and server name
+        where doc root is the path for the main folder/public and server name
+        is the desired url preferrably "link.me"
+    - Run notepad as administrator and open C://windows/system32/drivers/etc/.host file
+        add this lines:
+            127.0.0.1 localhost
+            127.0.0.1 link.me
+    - Then restart apache
+
+COMMANDS:
+    composer create-project --prefer-dist laravel/laravel ProjectName
+    php artisan make:controller ItemsController
+
+	
