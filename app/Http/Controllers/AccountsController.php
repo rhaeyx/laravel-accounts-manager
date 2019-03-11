@@ -136,8 +136,15 @@ class AccountsController extends Controller
             'card_expiry' => 'required'
         ]);
     
+        
+        
         $account = Account::find($id);
-
+        
+        # Check if the updater is the owner of the account
+        if(Auth::user()->id !== $account->user_id) {
+            return redirect('/accounts')->with('error', 'That account does not belong to you');
+        }
+        
         # Card Data
         $account->card_number = $request['card_number'];
         $account->card_cvv = $request['card_cvv'];
