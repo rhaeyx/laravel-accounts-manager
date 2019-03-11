@@ -5,7 +5,7 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Dashboard</h1>
             <hr>
-            @if(isset($netflix) && isset($spotify))
+            @if(isset($data) && count($data) > 0)
                 <table class="table table-striped">
                     <tr class="col-md-12">
                         <th>Netflix</th>
@@ -13,15 +13,19 @@
                         <th>Expiration</th>
                         <th></th>
                         <th></th>
-                    @for($i = 0; $i < count($netflix); $i++)
+                    @foreach ($data as $data)
+                        </tr>
+                        <td>{{$data['netflix_email']}}</td>   
+                        <td>{{$data['spotify_email']}}</td>   
+                        <td>{{$data['netflix_expiry']}}</td>   
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="/accounts/{{$data['id']}}/edit">Edit</a>
+                        </td>   
+                        <td>
+                            
+                        </td>   
                     </tr>
-                        <td>{{$netflix[$i]['email']}}</td>   
-                        <td>{{$spotify[$i]['email']}}</td>   
-                        <td>{{$netflix[$i]['cancel_date']}}</td>   
-                        <td></td>   
-                        <td></td>   
-                    </tr>
-                    @endfor
+                    @endforeach                    
             @endif
     </div>
 @endsection

@@ -40,15 +40,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function cards() {
-        return $this->hasMany('App\Card');
-    }
-    
-    public function netflix() {
-        return $this->hasMany('App\Netflix');
-    }
-
-    public function spotify() {
-        return $this->hasMany('App\Spotify');
+    public function accounts() {
+        return $this->hasMany('App\Account');
     }
 }

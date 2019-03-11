@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Card;
-use App\Netflix;
-use App\Spotify;
+use App\Account;
 use App\User;
 
 class AccountsController extends Controller
@@ -24,11 +22,10 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $netflix = Auth::user()->netflix;
-        $spotify = Auth::user()->spotify;
+        $data = Auth::user()->accounts;
 
         $title = 'Dashboard';
-        return view('accounts.index')->with(compact('title', 'netflix', 'spotify'));
+        return view('accounts.index')->with(compact('title', 'data'));
     }
 
     /**
@@ -53,49 +50,40 @@ class AccountsController extends Controller
         $request->validate([
             'netflix_email' => 'required',
             'netflix_password' => 'required',
-            'netflix_subscribers' => 'required',
+            'netflix_subscriber' => 'required',
             'spotify_email' => 'required',
             'spotify_password' => 'required',
-            'spotify_subscribers' => 'required',
+            'spotify_subscriber' => 'required',
             'card_number' => 'required',
             'card_cvv' => 'required',
-            'card_expiration' => 'required'
+            'card_expiry' => 'required'
         ]);
 
-        $user_id = Auth::user()->id;
-        $cancel_date = date('d/m/Y', strtotime('+1 month'));
+        $expiry = date('d/m/Y', strtotime('+1 month'));
         
-        $card = new Card;
-        $card->card_number = $request['card_number'];
-        $card->cvv = $request['card_cvv'];
-        $card->expiration = $request['card_expiration'];
-        $card->user_id = $user_id;
+        $account = new Account;
+        $account->user_id = Auth::user()->id;
 
-        # Save card data to get card_id
-        $card->save();
-        $card_id = $card->id;
+        # Card Data
+        $account->card_number = $request['card_number'];
+        $account->card_cvv = $request['card_cvv'];
+        $account->card_expiry = $request['card_expiry'];
 
-        $netflix = new Netflix;
-        $netflix->email = $request['netflix_email'];
-        $netflix->password = $request['netflix_password'];
-        $netflix->subscribers = $request['netflix_subscribers'];
-        $netflix->cancel_date = $cancel_date;
-        $netflix->card_id = $card_id;       
-        $netflix->user_id = $user_id;
+        # Netflix Data
+        $account->netflix_email = $request['netflix_email'];
+        $account->netflix_password = $request['netflix_password'];
+        $account->netflix_subscriber = $request['netflix_subscriber'];
+        $account->netflix_expiry = $expiry;
         
-        $spotify = new Spotify;
-        $spotify->email = $request['spotify_email'];
-        $spotify->password = $request['spotify_password'];
-        $spotify->subscribers = $request['spotify_subscribers'];
-        $spotify->cancel_date = $cancel_date;
-        $spotify->card_id = $card_id;
-        $spotify->user_id = $user_id;
+        # Spotify Data
+        $account->spotify_email = $request['spotify_email'];
+        $account->spotify_password = $request['spotify_password'];
+        $account->spotify_subscriber = $request['spotify_subscriber'];
+        $account->spotify_expiry = $expiry;
         
-        # Save the data.
-        $netflix->save();
-        $spotify->save();
+        $account->save();
 
-        return redirect('/accounts')->with('success', 'Accounts created.');
+        return redirect('/accounts')->with('success', 'Account created.');
     }
 
     /**
@@ -117,7 +105,14 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Account::find($id);
+
+        if(Auth::user()->id !== $data->user_id) {
+            return redirect('/login')->with('error', 'Unauthorized.');
+        }
+
+        $title = 'Edit';
+        return view('accounts.edit')->with(compact('title', 'data'));
     }
 
     /**
@@ -129,7 +124,38 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'netflix_email' => 'required',
+            'netflix_password' => 'required',
+            'netflix_subscriber' => 'required',
+            'spotify_email' => 'required',
+            'spotify_password' => 'required',
+            'spotify_subscriber' => 'required',
+            'card_number' => 'required',
+            'card_cvv' => 'required',
+            'card_expiry' => 'required'
+        ]);
+    
+        $account = Account::find($id);
+
+        # Card Data
+        $account->card_number = $request['card_number'];
+        $account->card_cvv = $request['card_cvv'];
+        $account->card_expiry = $request['card_expiry'];
+
+        # Netflix Data
+        $account->netflix_email = $request['netflix_email'];
+        $account->netflix_password = $request['netflix_password'];
+        $account->netflix_subscriber = $request['netflix_subscriber'];
+        
+        # Spotify Data
+        $account->spotify_email = $request['spotify_email'];
+        $account->spotify_password = $request['spotify_password'];
+        $account->spotify_subscriber = $request['spotify_subscriber'];
+        
+        $account->save();
+    
+        return redirect('/accounts')->with('success', 'Account updated.');
     }
 
     /**
