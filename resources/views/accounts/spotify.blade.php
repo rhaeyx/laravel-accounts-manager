@@ -3,16 +3,15 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 col-lg-12 col-md-offset-2">
-            <h1>Dashboard</h1>
+            <h1>Spotify</h1>
             <hr>
             @if(isset($data) && count($data) > 0)
-                <table class="table table-striped col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <table class="table table-striped table-dark table-bordered col-md-12 col-lg-12">
                     <tr class="col-sm- col-md-12 col-lg-12">
                         <th>#</th>
-                        <th>Netflix</th>
-                        <th>Netflix Users</th>
                         <th>Spotify</th>
-                        <th>Spotify User</th>
+                        <th>Spotify Users</th>
                         <th>Expiration</th>
                         <th></th>
                         <th></th>
@@ -27,11 +26,9 @@
                                 $i++;                                
                             @endphp
                         </td>
-                        <td>{{$data['netflix_email']}}</td>   
-                        <td>{{$data['netflix_subscriber']}}</td>   
                         <td>{{$data['spotify_email']}}</td>   
                         <td>{{$data['spotify_subscriber']}}</td>   
-                        <td>{{$data['netflix_expiry']}}</td>   
+                        <td>{{$data['spotify_expiry']}}</td>   
                         <td>
                             <a class="btn btn-primary btn-sm" href="/accounts/{{$data['id']}}/edit">Edit</a>
                         </td>   
@@ -43,7 +40,12 @@
                         </form>
                         </td>   
                     </tr>
-                    @endforeach                    
+                    @endforeach    
+                </table>
+            </div>      
+            @else
+                <h2>No data found.</h2>          
             @endif
+        </div>
     </div>
 @endsection

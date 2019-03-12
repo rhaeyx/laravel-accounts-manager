@@ -13,7 +13,11 @@
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                 @auth
-                    <li class="nav-item"><a class="nav-link" href="/home">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accounts">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accounts/netflix">Netflix</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accounts/spotify">Spotify</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/accounts/cards">Cards</a></li>
+                    <li class="nav-item"><a class="btn btn-success" href="/">Add account</a></li>
                 @endauth
             </ul>
 
@@ -41,6 +45,9 @@
                                                 document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
+
+                            <a class="dropdown-item" href="/accounts">Dashboard</a>
+                            <a class="dropdown-item" href="/accounts/create">Add account</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

@@ -14,6 +14,9 @@
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 
+Route::get('/accounts/netflix', 'AccountsController@netflix');
+Route::get('/accounts/spotify', 'AccountsController@spotify');
+Route::get('/accounts/cards', 'AccountsController@cards');
 Route::resource('accounts', 'AccountsController');
 
 Auth::routes();

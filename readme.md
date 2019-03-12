@@ -4,6 +4,7 @@
 - CRUD App
 
 ## TODO:
+- Sanitize user input for create and edit function
 - Delete button in dashboard.
 - Delete function.
 - Show page.

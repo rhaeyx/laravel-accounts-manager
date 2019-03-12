@@ -87,17 +87,6 @@ class AccountsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -173,6 +162,41 @@ class AccountsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $account = Account::find($id);
+
+        # Check if owner of account is the current logged in user.
+        if(Auth::user()->id !== $account->user_id) {
+            return redirect('/accounts')->with('error', 'Nice try! That account does not belong to you!');
+        }
+
+        $account->delete();
+
+        return redirect('/accounts')->with('error', 'Account erased from existence.');
+    }
+
+    # controller to show the netflix accounts table
+    public function netflix() 
+    {   
+        $title = 'Netflix';  
+        $data = Auth::user()->accounts;
+
+        return view('accounts.netflix')->with(compact('data', 'title'));
+    }
+
+    public function spotify() 
+    {   
+        $title = 'Spotify';  
+        $data = Auth::user()->accounts;
+
+        return view('accounts.spotify')->with(compact('data', 'title'));
+    }
+    
+    public function cards() 
+    {   
+        $title = 'Cards';  
+        $data = Auth::user()->accounts;
+
+        return view('accounts.cards')->with(compact('data', 'title'));
     }
 }
+

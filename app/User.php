@@ -41,6 +41,6 @@ class User extends Authenticatable
     ];
 
     public function accounts() {
-        return $this->hasMany('App\Account');
+        return $this->hasMany('App\Account')->orderBy('created_at', 'desc');
     }
 }

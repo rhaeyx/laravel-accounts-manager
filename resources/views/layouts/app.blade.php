@@ -21,10 +21,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
-    <!-- Extra -->
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Extra -->
+    <link rel="stylesheet" href="{{ asset('çss/custom.css') }}">
 </head>
 <body>
     @include('inc.nav')
