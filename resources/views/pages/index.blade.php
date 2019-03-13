@@ -8,9 +8,9 @@
             <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a> 
             <a class="btn btn-success btn-lg" href="/register" role="button">Register</a></p>
         @else
-            <a class="btn btn-danger btn-lg" href="/netflix" role="button">Netflix</a> 
-            <a class="btn btn-success btn-lg" href="/spotify" role="button">Spotify</a> 
-            <a class="btn btn-warning btn-lg" href="/cards" role="button">Cards</a> 
+            <a class="btn btn-danger btn-lg" href="/accounts/netflix" role="button">Netflix</a> 
+            <a class="btn btn-success btn-lg" href="/accounts/spotify" role="button">Spotify</a> 
+            <a class="btn btn-warning btn-lg" href="/accounts/cards" role="button">Cards</a> 
         @endguest   
     </div>
 @endsection
